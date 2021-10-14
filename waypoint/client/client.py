@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 
 from requests.cookies import RequestsCookieJar
 from requests.packages.urllib3.util.retry import Retry
@@ -26,16 +26,18 @@ class WaypointClient(APIClient):
     @http_method(StatHistory)
     def get_game_history(
         self,
-        game_variant: GameVariant,
-        gamertags: List[str],
-        page: int = 1,
+        gamertags: Union[str, List[str]],
+        game_variant: GameVariant = GameVariant.SLAYER,
         game: Game = Game.ALL,
+        page: int = 1,
     ):
+        if isinstance(gamertags, list):
+            gamertags = ",".join(gamertags)
         return self.session.get(
             "game-history",
             params={
                 "gameVariant": game_variant.value,
-                "gamertags": ",".join(gamertags),
+                "gamertags": gamertags,
                 "page": page,
                 "game": game.value,
                 "view": "DataOnly",
