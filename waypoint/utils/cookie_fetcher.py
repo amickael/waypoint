@@ -43,7 +43,6 @@ class CookieFetcher:
 
     def perform_auth(self) -> str:
         # Navigate to OAuth link
-        self.get_driver()
         self.driver.get(self.oauth_link)
 
         # Fill out username and click to next step
@@ -67,6 +66,7 @@ class CookieFetcher:
             return cookie["value"]
 
         # Loop if failure, this is common for this service
+        self.get_driver()
         return self.perform_auth()
 
 
