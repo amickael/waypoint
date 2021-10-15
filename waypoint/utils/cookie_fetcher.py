@@ -30,14 +30,20 @@ class CookieFetcher:
         self.get_driver()
 
     def get_driver(self, timeout: int = 5):
+        self.cleanup()
         self.driver = Chrome(
             service=self.webdriver_service,
             options=self.webdriver_options,
         )
         self.wait = WebDriverWait(self.driver, timeout)
 
+    def cleanup(self):
+        if self.driver:
+            self.driver.quit()
+
     def perform_auth(self) -> str:
         # Navigate to OAuth link
+        self.get_driver()
         self.driver.get(self.oauth_link)
 
         # Fill out username and click to next step
@@ -57,9 +63,12 @@ class CookieFetcher:
         self.wait.until(ec.url_to_be(self.oauth_dest))
         cookie = self.driver.get_cookie("Auth")
         if cookie:
+            self.cleanup()
             return cookie["value"]
 
         # Loop if failure, this is common for this service
-        self.driver.quit()
-        self.get_driver()
         return self.perform_auth()
+
+
+if __name__ == "__main__":
+    print(CookieFetcher("andrew@amickael.com", "k&UKR&]66ib|}}Oc/I^h").perform_auth())
