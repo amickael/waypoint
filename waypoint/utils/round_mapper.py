@@ -3,7 +3,7 @@ import hashlib
 from collections import defaultdict
 
 from waypoint import WaypointClient
-from waypoint.models import StatHistory, Round, Stat
+from waypoint.models import StatHistory, GameRound, Stat
 from waypoint.data import map_ids
 
 
@@ -16,7 +16,7 @@ class RoundMapper:
         ts = stat.DateTime.replace(second=0, microsecond=0).timestamp()
         return hashlib.md5(f"{ts}{stat.MapId}".encode("utf-8")).hexdigest()
 
-    def map_rounds(self, gamertags: List[str]) -> List[Round]:
+    def map_rounds(self, gamertags: List[str]) -> List[GameRound]:
         round_map = defaultdict(dict)
         win_map = {}
         map_map = {}
@@ -37,7 +37,7 @@ class RoundMapper:
                 continue
             map_info = map_ids.get(map_map[uid], {})
             results.append(
-                Round(
+                GameRound(
                     Participants=list(game_round.keys()),
                     Winner=win_map.get(uid, "N/A"),
                     PlayerStats=game_round,

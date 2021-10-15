@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from waypoint.models.stat import Stat
 
 
-class Round(BaseModel):
+class GameRound(BaseModel):
     Participants: List[str]
     Winner: str
     PlayerStats: Dict[str, Stat]
