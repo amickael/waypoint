@@ -17,14 +17,14 @@ class CookieFetcher:
         "-chief-collection%2fxbox-one%2fgame-history%3fview%3dDataOnly"
     )
     oauth_dest = unquote(parse_qs(urlparse(oauth_link).query)["state"][0])
-    webdriver_service = Service(ChromeDriverManager().install())
-    webdriver_options = ChromeOptions()
-    webdriver_options.headless = True
 
     def __init__(self, username: str, password: str):
         self.username = username
         self.password = password
 
+        self.webdriver_service = Service(ChromeDriverManager().install())
+        self.webdriver_options = ChromeOptions()
+        self.webdriver_options.headless = True
         self.driver: Union[Chrome, None] = None
         self.wait: Union[WebDriverWait, None] = None
         self.get_driver()
