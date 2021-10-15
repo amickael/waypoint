@@ -68,7 +68,3 @@ class CookieFetcher:
         # Loop if failure, this is common for this service
         self.get_driver()
         return self.perform_auth()
-
-
-if __name__ == "__main__":
-    print(CookieFetcher("andrew@amickael.com", "k&UKR&]66ib|}}Oc/I^h").perform_auth())
