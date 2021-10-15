@@ -6,6 +6,7 @@ from waypoint.models.stat import Stat
 
 
 class GameRound(BaseModel):
+    id: str
     Participants: List[str]
     Winner: str
     PlayerStats: Dict[str, Stat]

@@ -38,6 +38,7 @@ class RoundMapper:
             map_info = map_ids.get(map_map[uid], {})
             results.append(
                 GameRound(
+                    id=uid,
                     Participants=list(game_round.keys()),
                     Winner=win_map.get(uid, "N/A"),
                     PlayerStats=game_round,
