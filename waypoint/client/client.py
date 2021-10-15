@@ -1,6 +1,6 @@
 from typing import List, Union
+import datetime as dt
 
-from requests.cookies import RequestsCookieJar
 from requests.packages.urllib3.util.retry import Retry
 
 from waypoint.models import StatHistory
@@ -19,9 +19,7 @@ class WaypointClient(APIClient):
         super().__init__(
             "https://www.halowaypoint.com/en-us/games/halo-the-master-chief-collection/xbox-one/"
         )
-        cookie_jar = RequestsCookieJar()
-        cookie_jar.set("Auth", auth_cookie)
-        self.session.cookies = cookie_jar
+        self.session.cookies.set("Auth", auth_cookie)
 
     @http_method(StatHistory)
     def get_game_history(
@@ -41,5 +39,6 @@ class WaypointClient(APIClient):
                 "page": page,
                 "game": game.value,
                 "view": "DataOnly",
+                "_": round(dt.datetime.now().timestamp() * 1000),
             },
         )
