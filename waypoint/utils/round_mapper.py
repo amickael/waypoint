@@ -52,7 +52,8 @@ class RoundMapper:
                     Winner=win_map.get(uid),
                     PlayerStats=game_round,
                     Map=map_info.get("map"),
-                    Game=map_info.get("game"),
+                    Game=game,
+                    Variant=variant,
                 )
             )
         return results
