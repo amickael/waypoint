@@ -34,11 +34,11 @@ class RoundMapper:
                 page_num,
             )
             for player_history in history:
-                for game in player_history.Stats:
-                    uid = self._calculate_uid(game)
-                    round_map[uid][player_history.Gamertag] = game
-                    map_map[uid] = game.MapId
-                    if game.Won:
+                for stat in player_history.Stats:
+                    uid = self._calculate_uid(stat)
+                    round_map[uid][player_history.Gamertag] = stat
+                    map_map[uid] = stat.MapId
+                    if stat.Won:
                         win_map[uid] = player_history.Gamertag
         results = []
         for uid, game_round in round_map.items():

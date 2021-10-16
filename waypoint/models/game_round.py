@@ -10,7 +10,7 @@ class GameRound(BaseModel):
     id: str
     Participants: List[str]
     PlayerStats: Dict[str, Stat]
-    Winner: Optional[str] = None
-    Map: Optional[str] = None
-    Game: Optional[Game] = None
-    Variant: Optional[GameVariant] = None
+    Winner: Optional[str]
+    Map: Optional[str]
+    Game: Optional[Game]
+    Variant: Optional[GameVariant]
