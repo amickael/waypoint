@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from pydantic import BaseModel
 
@@ -8,7 +8,7 @@ from waypoint.models.stat import Stat
 class GameRound(BaseModel):
     id: str
     Participants: List[str]
-    Winner: str
     PlayerStats: Dict[str, Stat]
-    Map: str
-    Game: str
+    Winner: Optional[str] = None
+    Map: Optional[str] = None
+    Game: Optional[str] = None
