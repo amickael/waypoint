@@ -2,6 +2,8 @@ from typing import List
 import hashlib
 from collections import defaultdict
 
+from pydantic import ValidationError
+
 from waypoint import WaypointClient
 from waypoint.models import StatHistory, GameRound, Stat
 from waypoint.data import map_ids
@@ -27,12 +29,15 @@ class RoundMapper:
         win_map = {}
         map_map = {}
         for page_num in range(1, 11):
-            history: List[StatHistory] = self.client.get_game_history(
-                gamertags,
-                variant,
-                game,
-                page_num,
-            )
+            try:
+                history: List[StatHistory] = self.client.get_game_history(
+                    gamertags,
+                    variant,
+                    game,
+                    page_num,
+                )
+            except ValidationError:
+                continue
             for player_history in history:
                 for stat in player_history.Stats:
                     uid = self._calculate_uid(stat)
