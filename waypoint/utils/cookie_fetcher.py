@@ -1,12 +1,12 @@
 from urllib.parse import urlparse, parse_qs, unquote
 from typing import Union
 
-from selenium.webdriver import Chrome, ChromeOptions
-from selenium.webdriver.chrome.service import Service
+from selenium.webdriver import Firefox, FirefoxOptions
+from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
-from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
 
 
 class CookieFetcher:
@@ -22,16 +22,16 @@ class CookieFetcher:
         self.username = username
         self.password = password
 
-        self.webdriver_service = Service(ChromeDriverManager().install())
-        self.webdriver_options = ChromeOptions()
+        self.webdriver_service = Service(GeckoDriverManager().install())
+        self.webdriver_options = FirefoxOptions()
         self.webdriver_options.headless = True
-        self.driver: Union[Chrome, None] = None
+        self.driver: Union[Firefox, None] = None
         self.wait: Union[WebDriverWait, None] = None
         self.get_driver()
 
     def get_driver(self, timeout: int = 5):
         self.cleanup()
-        self.driver = Chrome(
+        self.driver = Firefox(
             service=self.webdriver_service,
             options=self.webdriver_options,
         )
