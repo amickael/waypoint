@@ -25,6 +25,9 @@ class CookieFetcher:
         self.webdriver_service = Service(ChromeDriverManager().install())
         self.webdriver_options = ChromeOptions()
         self.webdriver_options.headless = True
+        self.webdriver_options.add_argument("--no-sandbox")
+        self.webdriver_options.add_argument("--disable-dev-shm-usage")
+        self.webdriver_options.add_argument("--remote-debugging-port=9222")
         self.driver: Union[Chrome, None] = None
         self.wait: Union[WebDriverWait, None] = None
         self.get_driver()
